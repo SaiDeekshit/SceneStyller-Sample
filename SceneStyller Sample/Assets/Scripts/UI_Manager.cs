@@ -23,7 +23,9 @@ public class UI_Manager : MonoBehaviour
     public GameObject BackButton;
     public GameObject SaveButton;
 
-    public GameObject Toolkit1_Grey,Toolkit2_Grey,Toolkit3_Grey,Toolkit4_Grey;
+    public GameObject Toolkit1_Grey,Toolkit2_Grey,Toolkit3_Grey,Toolkit4_Grey;  //List of Toolkit Greyout
+
+    public GameObject Orient_Buttons2,Orient_Buttons3;
 
 
     // Start is called before the first frame update

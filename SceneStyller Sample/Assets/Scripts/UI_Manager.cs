@@ -27,6 +27,9 @@ public class UI_Manager : MonoBehaviour
 
     public GameObject Orient_Buttons2,Orient_Buttons3;
 
+    public Animator Right_Panel,Left_Panel;
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -117,6 +120,40 @@ public class UI_Manager : MonoBehaviour
             GreyOutButtons.SetActive(true);
     }
 
+    
+  public void InfoForward_Anim(){                                 // For Right side panels Info, lighting and Camera
+    Right_Panel.SetBool("InfoPanel",true);
+  }
+  public void InfoBackward_Anim(){
+    Right_Panel.SetBool("InfoPanel",false);
+  }
+  public void LightForward_Anim(){
+    Right_Panel.SetBool("LightPanel",true);
+  }
+  public void LightBackward_Anim(){
+    Right_Panel.SetBool("LightPanel",false);
+  }
+  public void CameraForward_Anim(){
+    Right_Panel.SetBool("CameraPanel",true);
+  }
+  public void CameraBackward_Anim(){
+    Right_Panel.SetBool("CameraPanel",false);
+  }
+  
+  public void AddForward_Anim(){
+    Left_Panel.SetBool("AddBool",true);
+  }
+  public void AddBackward_Anim(){
+    Left_Panel.SetBool("AddBool",false);
+  }
+  public void InventoryForward_Anim(){
+    Left_Panel.SetBool("InventoryBool",true);
+  }
+  public void InventoryBackward_Anim(){
+    Left_Panel.SetBool("InventoryBool",false);
+  }
+
+  
 
     void CurrentObjects(){
         switch (CurrentPage)

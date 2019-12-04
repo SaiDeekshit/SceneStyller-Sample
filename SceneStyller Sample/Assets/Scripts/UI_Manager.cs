@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
-
+   
+    [Header("Templates & Panels")]
     public GameObject ToolkitCapture_Template;    //Toolkit & Capture Template
+    public GameObject Capture_Template;
     string CurrentPage = "";                           //CurrentPage (Template)
 
 
@@ -23,18 +25,39 @@ public class UI_Manager : MonoBehaviour
     public GameObject BackButton;
     public GameObject SaveButton;
 
-    public GameObject Toolkit1_Grey,Toolkit2_Grey,Toolkit3_Grey,Toolkit4_Grey;  //List of Toolkit Greyout
+    // public GameObject Toolkit1_Grey,Toolkit2_Grey,Toolkit3_Grey,Toolkit4_Grey;  //List of Toolkit Greyout
 
     public GameObject Orient_Buttons2,Orient_Buttons3;
 
     public Animator Right_Panel,Left_Panel;
+
+    [Space(10)]
+    [Header("InputFields")]
+    public InputField Email_Id;
+    public InputField Password;
+    public InputField Captcha1;
+    public InputField FirstName;
+    public InputField LastName;
+    public InputField EnterEmail;
+    public InputField EnterPassword;
+    public InputField Captcha2;
+    [Space(10)]
+    [Header("Top Buttons")]
+    public GameObject SaveLogo_Blue;           //Buttons for Save and Profile
+    public GameObject SaveDropDown;
+    public GameObject ProfileLogo;
+    public GameObject ProfileDropDown;
+    bool ProfileDropBl = true;
+    public GameObject Setting_Panel;
+    
     
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ToolkitCapture_Template.SetActive(false);
+        Capture_Template.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,65 +83,121 @@ public class UI_Manager : MonoBehaviour
         if(EmailValidate.IsEmail(EmailLogin_Text.text)){
         ToolkitCapture_Template.SetActive(true);
         CurrentPage = "Toolkit";
+        Email_Id.text = "";
+        Password.text = "";
+        Captcha1.text = "";
+        FirstName.text = "";
+        LastName.text = "";
+        EnterEmail.text = "";
+        EnterPassword.text = "";
+        Captcha2.text = "";
         CurrentObjects();
        }
     }
 
-    public void Toolkit1(){                         ///Selection of Toolkit
-      CurrentToolkit("one");
+    public void OpenDropSave(){                     //Open and Close Drop Down of Save
+      ProfileDropDown.SetActive(false);
+      SaveDropDown.SetActive(true);
+      SaveLogo_Blue.SetActive(false);
     }
-    public void Toolkit2(){
-      CurrentToolkit("two");
+    public void CloseDropSave(){
+      SaveDropDown.SetActive(false);
+      SaveLogo_Blue.SetActive(true);
     }
-    public void Toolkit3(){
-      CurrentToolkit("three");
-    }
-    public void Toolkit4(){
-      CurrentToolkit("four");
-    }
-    void CurrentToolkit(string number){
-        GreyOutButtons.SetActive(false);
-        switch (number)
-        {
-            case "one":
-            Toolkit1_Grey.SetActive(false);
-            Toolkit2_Grey.SetActive(true);
-            Toolkit3_Grey.SetActive(true);
-            Toolkit4_Grey.SetActive(true);
-            break;
 
-            case "two":
-            Toolkit1_Grey.SetActive(true);
-            Toolkit2_Grey.SetActive(false);
-            Toolkit3_Grey.SetActive(true);
-            Toolkit4_Grey.SetActive(true);
-            break;
+    public void OpenSettingPanel(){
+      if(CurrentPage == "Capture"){
+      Setting_Panel.SetActive(true);
+       SaveDropDown.SetActive(false);
+       ProfileDropDown.SetActive(false);
+      }
+    }
 
-            case "three":
-            Toolkit1_Grey.SetActive(true);
-            Toolkit2_Grey.SetActive(true);
-            Toolkit3_Grey.SetActive(false);
-            Toolkit4_Grey.SetActive(true);
-            break;
+    public void OpenDropProfile(){            //OPen and Close Drop profile
+      if(ProfileDropBl){
+      SaveDropDown.SetActive(false);
+      ProfileDropDown.SetActive(true);
+      }else{
+        ProfileDropDown.SetActive(false);
+      }
+      ProfileDropBl = !ProfileDropBl;
+    }
 
-            case "four":
-            Toolkit1_Grey.SetActive(true);
-            Toolkit2_Grey.SetActive(true);
-            Toolkit3_Grey.SetActive(true);
-            Toolkit4_Grey.SetActive(false);
-            break;
+    public void SignOut(){                      //Signout
+      switch(CurrentPage){
+        case "Toolkit":
+        ToolkitCapture_Template.SetActive(false);
+        GreyOutButtons.SetActive(true);
+        break;
+        case "Capture":
+        ToolkitCapture_Template.SetActive(false);
+        Capture_Template.SetActive(false);
+        GreyOutButtons.SetActive(true);
+        break;
+        
+      }
+    }
+    
+    public void GotoCapture_Template(){          //For Design Button
+      CurrentPage = "Capture";
+    }
+    
+
+    // public void Toolkit1(){                         ///Selection of Toolkit
+    //   CurrentToolkit("one");
+    // }
+    // public void Toolkit2(){
+    //   CurrentToolkit("two");
+    // }
+    // public void Toolkit3(){
+    //   CurrentToolkit("three");
+    // }
+    // public void Toolkit4(){
+    //   CurrentToolkit("four");
+    // }
+    // void CurrentToolkit(string number){
+    //     GreyOutButtons.SetActive(false);
+    //     switch (number)
+    //     {
+    //         case "one":
+    //         Toolkit1_Grey.SetActive(false);
+    //         Toolkit2_Grey.SetActive(true);
+    //         Toolkit3_Grey.SetActive(true);
+    //         Toolkit4_Grey.SetActive(true);
+    //         break;
+
+    //         case "two":
+    //         Toolkit1_Grey.SetActive(true);
+    //         Toolkit2_Grey.SetActive(false);
+    //         Toolkit3_Grey.SetActive(true);
+    //         Toolkit4_Grey.SetActive(true);
+    //         break;
+
+    //         case "three":
+    //         Toolkit1_Grey.SetActive(true);
+    //         Toolkit2_Grey.SetActive(true);
+    //         Toolkit3_Grey.SetActive(false);
+    //         Toolkit4_Grey.SetActive(true);
+    //         break;
+
+    //         case "four":
+    //         Toolkit1_Grey.SetActive(true);
+    //         Toolkit2_Grey.SetActive(true);
+    //         Toolkit3_Grey.SetActive(true);
+    //         Toolkit4_Grey.SetActive(false);
+    //         break;
             
       
-        }
-    }
+    //     }
+    // }
 
-    public void Deselect_Toolkit(){
-            Toolkit1_Grey.SetActive(true);
-            Toolkit2_Grey.SetActive(true);
-            Toolkit3_Grey.SetActive(true);
-            Toolkit4_Grey.SetActive(true);
-            GreyOutButtons.SetActive(true);
-    }
+    // public void Deselect_Toolkit(){
+    //         Toolkit1_Grey.SetActive(true);
+    //         Toolkit2_Grey.SetActive(true);
+    //         Toolkit3_Grey.SetActive(true);
+    //         Toolkit4_Grey.SetActive(true);
+    //         GreyOutButtons.SetActive(true);
+    // }
 
     
   public void InfoForward_Anim(){                                 // For Right side panels Info, lighting and Camera

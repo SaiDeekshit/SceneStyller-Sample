@@ -6,8 +6,8 @@ public class ToolkitManager : MonoBehaviour
 {
     public UI_Manager ui_Manager;
     public ToolkitManager Tkm;
-    public GameObject _currentSelectedToolkit = null;
-    public GameObject currentSelectedToolkit
+    public RefernceToolkit _currentSelectedToolkit;
+    public RefernceToolkit currentSelectedToolkit
     {
         get    
         {
@@ -15,17 +15,34 @@ public class ToolkitManager : MonoBehaviour
         }
         set
         {
-            if(currentSelectedToolkit != null)
-                DeSelectToolkit(currentSelectedToolkit);
+            // if(currentSelectedToolkit != null)
+            //     DeSelectToolkit(currentSelectedToolkit);
+            // _currentSelectedToolkit = value;
+            // SelectToolkit(currentSelectedToolkit);
+            if(_currentSelectedToolkit != null)
+                _currentSelectedToolkit.DeselectThis();
             _currentSelectedToolkit = value;
-            SelectToolkit(currentSelectedToolkit);
+            currentSelectedToolkit.SelectThis();
         }
     }
+
+    void OnEnable() 
+    {
+        LobbyEvents.onToolkitSelected += SetCurrentSelectedToolkit;
+    }
+
+    void OnDisable() 
+    {
+        LobbyEvents.onToolkitSelected -= SetCurrentSelectedToolkit;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
        ui_Manager = GameObject.Find("UIManager").GetComponent<UI_Manager>();
        Tkm = GameObject.Find("UIManager").GetComponent<ToolkitManager>();
+       
     }
 
     // Update is called once per frame
@@ -33,17 +50,22 @@ public class ToolkitManager : MonoBehaviour
     {
         
     }
-    public void SelectToolkit(GameObject Toolkit){
-    //   Debug.Log("SelectToolkit");
-      _currentSelectedToolkit.SetActive(false);
-      ui_Manager.GreyOutButtons.SetActive(false);
-    }
-    public void DeSelectToolkit(GameObject Toolkit){
-        // Debug.Log("DeSelectToolkit");
-        _currentSelectedToolkit.SetActive(true);
-        ui_Manager.GreyOutButtons.SetActive(true);
-    }
-    public void DeSelectAll(){
-        Tkm.currentSelectedToolkit = null;
+    // public void SelectToolkit(GameObject Toolkit){
+    // //   Debug.Log("SelectToolkit");
+    //   _currentSelectedToolkit.SetActive(false);
+    //   ui_Manager.GreyOutButtons.SetActive(false);
+    // }
+    // public void DeSelectToolkit(GameObject Toolkit){
+    //     // Debug.Log("DeSelectToolkit");
+    //     _currentSelectedToolkit.SetActive(true);
+    //     ui_Manager.GreyOutButtons.SetActive(true);
+    // }
+    // public void DeSelectAll(){
+    //     Tkm.currentSelectedToolkit = null;
+    // }
+
+    void SetCurrentSelectedToolkit(RefernceToolkit toolkit)
+    {
+        currentSelectedToolkit = toolkit;
     }
 }

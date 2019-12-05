@@ -63,8 +63,10 @@ public class PopulateToolkit : MonoBehaviour
 
         // for(int i = 0; i < numberToCreate; i++){
             newObj = (GameObject)Instantiate(prefab,transform);      //Create new instances of our prefab until we 've created as many as we specified
-            newObj.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = NameofToolkit.text;
-            newObj.gameObject.transform.GetChild(1).GetChild(0).gameObject.GetComponent<Text>().text = NameofToolkit.text;
+            newObj.GetComponent<RefernceToolkit>().SetToolkitName(NameofToolkit.text);
+            // newObj.gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = NameofToolkit.text;
+            // newObj.gameObject.transform.GetChild(1).GetChild(0).gameObject.GetComponent<Text>().text = NameofToolkit.text;
+            // LobbyEvents.RaiseOnCreateButtonClick(NameofToolkit.text);
             NameofToolkit.text = "";
             
             // newObj.GetComponent<Image>().color = Random.ColorHSV();   // Randomize the color of our image
